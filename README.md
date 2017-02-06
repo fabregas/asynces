@@ -1,7 +1,7 @@
 # asynces
 ### Asyncio driver for Elasticsearch
 
-*****asynces******** package provide AsyncElasticsearch class inherited from
+*****asynces****** package provide AsyncElasticsearch class inherited from
 Elasticsearch class from official python driver
 [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html)
 
@@ -25,4 +25,4 @@ loop.run_until_complete(test(loop))
 loop.close()
 ```
 
-## Supported Python versions: 3.5+
+### Supported Python versions: 3.5+

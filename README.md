@@ -1,5 +1,5 @@
 # asynces
-### Asyncio driver for Elasticsearch
+### Asyncio driver for Elasticsearch and Python 3.5+
 
 **asynces** package provide AsyncElasticsearch class inherited from
 Elasticsearch class from official python driver
@@ -25,14 +25,12 @@ loop.run_until_complete(test(loop))
 loop.close()
 ```
 
-### Supported Python versions: 3.5+
-
 ## Install
 
 First, you should install proper version on [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html#compatibility)
 in accordance to your elasticsearch server version.
 
-After that you can install asynces package:
+After that you should install asynces package:
 
 > pip install asynces
 

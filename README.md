@@ -1,7 +1,7 @@
 # asynces
 ### Asyncio driver for Elasticsearch
 
-*****asynces****** package provide AsyncElasticsearch class inherited from
+**asynces** package provide AsyncElasticsearch class inherited from
 Elasticsearch class from official python driver
 [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html)
 

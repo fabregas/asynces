@@ -34,7 +34,7 @@ class IntegrationTest:
             try:
                 await es.ping()
             except elasticsearch.ElasticsearchException:
-                await asyncio.sleep(0.2, loop=cls.loop)
+                await asyncio.sleep(0.5, loop=cls.loop)
             else:
                 break
         else:

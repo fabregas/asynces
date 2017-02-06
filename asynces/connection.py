@@ -1,6 +1,7 @@
 import aiohttp
 import asyncio
 import async_timeout
+import elasticsearch as es
 
 from elasticsearch.connection.base import Connection
 from elasticsearch.compat import urlencode
@@ -54,6 +55,15 @@ class AioConnection(Connection):
             method, full_url, url, body, resp.status, raw_data, duration)
 
         return resp.status, resp.headers, raw_data
+
+    def log_request_fail(self, method, full_url, path, body, duration,
+                         status_code=None, response=None, exception=None):
+        if es.VERSION < (5, 0):
+            super().log_request_fail(method, full_url, body, duration,
+                                     status_code, response, exception)
+        else:
+            super().log_request_fail(method, full_url, path, body, duration,
+                                     status_code, response, exception)
 
     def close(self):
         """

@@ -34,6 +34,6 @@ in accordance to your elasticsearch server version.
 
 After that you can install asynces package:
 
->> pip install asynces
+> pip install asynces
 
 

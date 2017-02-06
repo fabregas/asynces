@@ -11,7 +11,7 @@ python:
 env:
     matrix:
         - DOCKER_IMAGE=elasticsearch:5.1.2 PYESVER=5.1.0 PYTHONASYNCIODEBUG=1
-
+        - DOCKER_IMAGE=elasticsearch:2.4 PYESVER=2.4.1 PYTHONASYNCIODEBUG=1
 
 install:
     - pip install flake8

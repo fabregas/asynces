@@ -1,6 +1,7 @@
 # asynces
 [![Build Status](https://travis-ci.org/fabregas/asynces.svg?branch=master)](https://travis-ci.org/fabregas/asynces)
-[![Coverage Status](https://coveralls.io/repos/github/fabregas/asynces/badge.svg?branch=master)](https://coveralls.io/github/fabregas/asynces?branch=master)
+[![codecov](https://codecov.io/gh/fabregas/asynces/branch/master/graph/badge.svg)](https://codecov.io/gh/fabregas/asynces)
+
 
 ### Asyncio driver for Elasticsearch and Python 3.5+
 

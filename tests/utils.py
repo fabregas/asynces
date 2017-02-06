@@ -36,6 +36,7 @@ class IntegrationTest:
             except elasticsearch.ElasticsearchException:
                 await asyncio.sleep(0.5, loop=cls.loop)
             else:
+                es.close()
                 break
         else:
             raise RuntimeError("es connection error")

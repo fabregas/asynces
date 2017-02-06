@@ -11,6 +11,10 @@ flake:
 test: flake
 	pytest -s --no-print-logs --docker-image $(DOCKER_IMAGE) $(FLAGS) tests
 
+cov cover coverage: flake
+	pytest -s --no-print-logs --cov asynces --cov-report html --docker-image $(DOCKER_IMAGE) $(FLAGS) tests
+	@echo "open file://`pwd`/htmlcov/index.html"
+
 clean:
 	rm -rf `find . -name __pycache__`
 	rm -f `find . -type f -name '*.py[co]' `

@@ -1,0 +1,28 @@
+language: python
+
+sudo: required
+services:
+  - docker
+
+python:
+    - 3.5
+    - 3.6
+
+env:
+    matrix:
+        - DOCKER_IMAGE=elasticsearch:5.1.2 PYESVER=5.1.0 PYTHONASYNCIODEBUG=1
+
+
+install:
+    - pip install flake8
+    - pip install pytest pytest-cov pytest-catchlog docker-py
+    - pip install codecov
+    - pip install elasticsearch==$PYESVER
+    - pip install .
+
+script:
+  - make cov
+
+after_success:
+  - codecov
+

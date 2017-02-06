@@ -26,3 +26,14 @@ loop.close()
 ```
 
 ### Supported Python versions: 3.5+
+
+## Install
+
+First, you should install proper version on [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html#compatibility)
+in accordance to your elasticsearch server version.
+
+After that you can install asynces package:
+
+>> pip install asynces
+
+

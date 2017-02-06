@@ -1,19 +1,28 @@
 # asynces
-Asyncio driver for Elasticsearch
+### Asyncio driver for Elasticsearch
 
+*****asynces******** package provide AsyncElasticsearch class inherited from
+Elasticsearch class from official python driver
+[elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html)
 
-Example:
+All methods from Elasticsearch class instance are available in AsyncElasticsearch
+class intance. Every API method returns [coroutine](https://docs.python.org/3/library/asyncio-task.html#coroutines)
+that must be awaited.
+
+For example:
 ```python
 import asyncio
 from asynces import AsyncElasticsearch
 
-async def test():
-    ret = await s.search(index='my-index')
-    return ret
+async def test(loop):
+    es = AsyncElasticsearch('http://127.0.0.1:9200/', loop=loop)
+    ret = await es.search(index='my-index')
+    print(ret)
+    es.close()
 
 loop = asyncio.get_event_loop()
-es = AsyncElasticsearch('http://127.0.0.1:9200/', loop=loop)
-loop.run_until_complete(test(es))
-es.close()
+loop.run_until_complete(test(loop))
 loop.close()
 ```
+
+## Supported Python versions: 3.5+

@@ -30,9 +30,9 @@ class AioConnection(Connection):
 
         start = self._loop.time()
         try:
-            with async_timeout.timeout(timeout):
+            with async_timeout.timeout(timeout, loop=self._loop):
                 async with self._session.request(
-                        method, full_url, params=params, data=body) as resp:
+                        method, full_url, data=body) as resp:
                     raw_data = await resp.text()
         except Exception as e:
             self.log_request_fail(

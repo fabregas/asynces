@@ -110,7 +110,7 @@ class AioTransport:
         # mark as dead even when sniffing to avoid
         # hitting this host during the sniff process
         await self._connection_pool.mark_dead(connection)
-        if self.sniff_on_connection_fail:
+        if self._sniff_on_connection_fail:
             await self.sniff_hosts()
 
     def perform_request(self, method, url, params=None, body=None):
@@ -119,6 +119,11 @@ class AioTransport:
     async def async_req(self, method, url, params, body):
         if body is not None:
             body = self._serializer.dumps(body)
+            try:
+                body = body.encode('utf-8')
+            except (UnicodeDecodeError, AttributeError):
+                # bytes/str - no need to re-encode
+                pass
 
         if params:
             timeout = params.pop('request_timeout', None)
@@ -151,7 +156,7 @@ class AioTransport:
                     # only mark as dead if we are retrying
                     await self._mark_dead(conn)
                     # raise exception on last retry
-                    if attempt == self.max_retries:
+                    if attempt == self._max_retries:
                         raise
                 else:
                     raise
@@ -168,4 +173,3 @@ class AioTransport:
 
     def close(self):
         self._connection_pool.close()
-

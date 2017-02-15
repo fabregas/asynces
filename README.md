@@ -10,7 +10,7 @@ Elasticsearch class from official python driver
 [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html)
 
 All methods from Elasticsearch class instance are available in AsyncElasticsearch
-class intance. Every API method returns [coroutine](https://docs.python.org/3/library/asyncio-task.html#coroutines)
+class instance (see http://elasticsearch-py.readthedocs.io/en/master/api.html). Every API method returns [coroutine](https://docs.python.org/3/library/asyncio-task.html#coroutines)
 that must be awaited.
 
 For example:

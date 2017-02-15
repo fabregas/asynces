@@ -38,6 +38,7 @@ class IntegrationTest:
             else:
                 es.close()
                 break
+
         else:
             raise RuntimeError("es connection error")
 

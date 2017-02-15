@@ -3,7 +3,7 @@ import sys
 from setuptools import setup
 
 
-install_requires = ['aiohttp']
+install_requires = ['yarl==0.9.3', 'aiohttp']
 
 PY_VER = sys.version_info
 

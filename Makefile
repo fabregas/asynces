@@ -11,6 +11,9 @@ flake:
 test: flake
 	pytest -s --no-print-logs --docker-image $(DOCKER_IMAGE) $(FLAGS) tests
 
+vtest: flake
+	pytest -s -vvv --no-print-logs --docker-image $(DOCKER_IMAGE) $(FLAGS) tests
+
 cov cover coverage: flake
 	pytest -s --no-print-logs --cov asynces --cov-report html --docker-image $(DOCKER_IMAGE) $(FLAGS) tests
 	@echo "open file://`pwd`/htmlcov/index.html"

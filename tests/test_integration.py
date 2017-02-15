@@ -32,6 +32,12 @@ class TestFunctional(IntegrationTest):
             await es.cluster.stats(human=True)
 
     @asynctest
+    async def test_sniff(self):
+        async with self.elastic(sniff_on_start=True) as es:
+            ret = await es.cluster.stats()
+            assert ret['cluster_name'] == 'elasticsearch'
+
+    @asynctest
     @pytest.mark.skipif(
         es.VERSION >= (5, 0), reason="for elasticsearch 2.X only")
     async def test_es2(self):

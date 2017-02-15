@@ -20,8 +20,11 @@ class AioTransport:
         self._retry_on_status = retry_on_status
 
         # sniffing data
+        if sniff_on_start:
+            self._last_sniff = 0
+        else:
+            self._last_sniff = loop.time()
         self._sniffer_timeout = sniffer_timeout
-        self._last_sniff = loop.time()
         self._sniff_timeout = sniff_timeout
         self._sniff_on_connection_fail = sniff_on_connection_fail
 
@@ -30,9 +33,9 @@ class AioTransport:
         self._deserializer = Deserializer(serializers, 'application/json')
         self._connection_pool = ConnectionPool([], loop=loop)
         self._kwargs = kwargs
-        self.set_connections(hosts)
+        self._set_connections(hosts)
 
-    def set_connections(self, hosts):
+    def _set_connections(self, hosts):
         connections = []
         for host in hosts:
             for connection in self._connection_pool.connections:
@@ -49,10 +52,10 @@ class AioTransport:
         self._connection_pool = ConnectionPool(connections, loop=self._loop)
 
     async def _get_sniff_data(self, initial=False):
-        previous_sniff = self.last_sniff
+        previous_sniff = self._last_sniff
         try:
             # reset last_sniff timestamp
-            self.last_sniff = self._loop.time()
+            self._last_sniff = self._loop.time()
             for c in self._connection_pool.connections:
                 try:
                     # use small timeout for the sniffing request,
@@ -60,7 +63,7 @@ class AioTransport:
                     _, headers, node_info = await c.perform_request(
                         'GET', '/_nodes/_all/http',
                         timeout=self._sniff_timeout if not initial else None)
-                    node_info = self.deserializer.loads(
+                    node_info = self._deserializer.loads(
                         node_info, headers.get('content-type'))
                     break
                 except (ConnectionError, SerializationError):
@@ -69,7 +72,7 @@ class AioTransport:
                 raise TransportError("N/A", "Unable to sniff hosts.")
         except:
             # keep the previous value on error
-            self.last_sniff = previous_sniff
+            self._last_sniff = previous_sniff
             raise
 
         return list(node_info['nodes'].values())
@@ -104,6 +107,9 @@ class AioTransport:
         if self._sniffer_timeout:
             if self._loop.time() >= self._last_sniff + self._sniffer_timeout:
                 await self.sniff_hosts()
+        elif self._last_sniff == 0:
+            # one-time sniff on start
+            await self.sniff_hosts()
         return await self._connection_pool.get_connection()
 
     async def _mark_dead(self, connection):

@@ -4,6 +4,7 @@ import pytest
 import uuid
 import gc
 import logging
+from pytest_mock import mocker
 
 
 log = logging.getLogger('es-tests')
@@ -66,6 +67,7 @@ def es_server(request, docker, session_id):
         name='asynces-es-tests-{}'.format(session_id),
     )
     ip = start_container(docker, container['Id'])
+    print("* waiting es service ...")
     yield ip, 9200
     docker.kill(container=container['Id'])
     container_logs(docker, container, 'elasticsearch')
@@ -76,4 +78,5 @@ def es_server(request, docker, session_id):
 def setup_test_class(request, loop, es_server):
     request.cls.loop = loop
     request.cls.es_host, request.cls.es_port = es_server
+    request.cls.mocker = mocker
     loop.run_until_complete(request.cls.wait_es())

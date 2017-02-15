@@ -5,6 +5,7 @@ pytest==3.0.3
 pytest-catchlog==1.2.2
 pytest-cov==2.4.0
 pytest-sugar==0.7.1
+pytest-mock==1.5.0
 elasticsearch==5.0.1
 pytest-logging
 bumpversion

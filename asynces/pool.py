@@ -27,9 +27,6 @@ class ConnectionPool:
         ret.set_result(None)
         return ret
 
-    def detach(self, connection):
-        self._connections.remove(connection)
-
     @property
     def connections(self):
         return list(self._connections)

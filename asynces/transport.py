@@ -10,14 +10,15 @@ from .connection import AioConnection
 
 
 class AioTransport:
-    def __init__(self, hosts, max_retries=3, retry_on_status=(502, 503, 504,),
+    def __init__(self, hosts, max_retries=3,
+                 retry_on_status=(502, 503, 504,), retry_on_timeout=False,
                  sniff_on_start=False, sniffer_timeout=None, sniff_timeout=0.1,
                  sniff_on_connection_fail=False, *, loop, **kwargs):
-        self._hosts = hosts
         self._loop = loop
         self._serializer = JSONSerializer()
         self._max_retries = max_retries
         self._retry_on_status = retry_on_status
+        self._retry_on_timeout = retry_on_timeout
 
         # sniffing data
         if sniff_on_start:

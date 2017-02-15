@@ -189,11 +189,15 @@ class TestMocks(IntegrationTest):
         async def mockresp(*args, **kwargs):
             class Resp:
                 status = 444
+
                 async def text(self):
                     return ""
+
                 async def release(self):
                     pass
+
             return Resp()
+
         mocker.patch(
             'aiohttp.client.ClientSession._request', new=mockresp)
         async with self.elastic() as es:

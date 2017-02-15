@@ -15,7 +15,7 @@ env:
 
 install:
     - pip install flake8
-    - pip install pytest pytest-cov pytest-catchlog docker-py
+    - pip install pytest pytest-cov pytest-catchlog docker-py pytest-mock
     - pip install codecov
     - pip install elasticsearch==$PYESVER
     - pip install .

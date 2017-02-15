@@ -20,6 +20,9 @@ from asynces import AsyncElasticsearch
 
 async def test(loop):
     es = AsyncElasticsearch('http://127.0.0.1:9200/', loop=loop)
+    doc = {'hello': 'world'}
+    await es.index(index='my-index', doc_type='test', body=doc, refresh=False)
+    await es.indices.refresh(index="my-index")
     ret = await es.search(index='my-index')
     print(ret)
     es.close()

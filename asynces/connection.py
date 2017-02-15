@@ -13,6 +13,7 @@ class AioConnection(Connection):
         super(AioConnection, self).__init__(host, port, **kwargs)
         self._loop = loop
         verify_ssl = kwargs.get('verify_ssl', False)
+        self._addr = {"host": host, "port": port}
         self._session = aiohttp.ClientSession(
             loop=loop,
             connector=aiohttp.TCPConnector(
@@ -20,6 +21,9 @@ class AioConnection(Connection):
                 loop=loop,
                 verify_ssl=verify_ssl)
         )
+
+    def addr(self):
+        return self._addr
 
     async def perform_request(
             self, method, url, params=None, body=None,

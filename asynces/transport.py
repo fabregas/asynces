@@ -39,7 +39,7 @@ class AioTransport:
         connections = []
         for host in hosts:
             for connection in self._connection_pool.connections:
-                if connection.host == host:
+                if connection.addr() == host:
                     connections.append(connection)
                     break
             else:

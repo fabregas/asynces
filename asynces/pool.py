@@ -1,6 +1,5 @@
 import asyncio
 import collections
-import time
 import logging
 
 from elasticsearch.connection_pool import RoundRobinSelector
@@ -23,6 +22,11 @@ class ConnectionPool:
     def close(self):
         for connection in self._connections:
             connection.close()
+
+        while not self._dead.empty():
+            _, connection = self._dead.get_nowait()
+            connection.close()
+
         ret = asyncio.Future(loop=self._loop)
         ret.set_result(None)
         return ret
@@ -38,7 +42,7 @@ class ConnectionPool:
 
         :arg connection: the failed instance
         """
-        now = time.monotonic()
+        now = self._loop.time()
         try:
             self._connections.remove(connection)
         except ValueError:
@@ -79,7 +83,7 @@ class ConnectionPool:
 
         timeout, connection = self._dead.get_nowait()
 
-        if not force and timeout > time.monotonic():
+        if not force and timeout > self._loop.time():
             # return it back if not eligible and not forced
             await self._dead.put((timeout, connection))
             return

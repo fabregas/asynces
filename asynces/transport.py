@@ -34,21 +34,18 @@ class AioTransport:
         self._deserializer = Deserializer(serializers, 'application/json')
         self._connection_pool = ConnectionPool([], loop=loop)
         self._kwargs = kwargs
-        self._set_connections(hosts)
+        self._reset_connections(hosts)
 
-    def _set_connections(self, hosts):
+    def _reset_connections(self, hosts):
+        self._connection_pool.close()
+
         connections = []
         for host in hosts:
-            for connection in self._connection_pool.connections:
-                if connection.addr() == host:
-                    connections.append(connection)
-                    break
-            else:
-                # previously unseen params, create new connection
-                kwargs = self._kwargs.copy()
-                kwargs.update(host)
-                connection = AioConnection(**kwargs, loop=self._loop)
-                connections.append(connection)
+            # previously unseen params, create new connection
+            kwargs = self._kwargs.copy()
+            kwargs.update(host)
+            connection = AioConnection(**kwargs, loop=self._loop)
+            connections.append(connection)
 
         self._connection_pool = ConnectionPool(connections, loop=self._loop)
 
@@ -102,7 +99,7 @@ class AioTransport:
         if not hosts:
             raise TransportError(
                 "N/A", "Unable to sniff hosts - no viable hosts found.")
-        self._set_connections(hosts)
+        self._reset_connections(hosts)
 
     async def get_connection(self):
         if self._sniffer_timeout:

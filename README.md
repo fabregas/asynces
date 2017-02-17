@@ -5,17 +5,17 @@
 
 ### Asyncio driver for Elasticsearch and Python 3.5+
 
-The main idea of asynces is just create asyncio transport for official elasticsearch python driver.
+Its goal is to create an asyncio transport for the official elasticsearch python driver.
 
-**asynces** package provide AsyncElasticsearch class inherited from
-Elasticsearch class from official python driver
-[elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html)
+**The asynces** package provides the AsyncElasticsearch class inherited from
+the Elasticsearch class (see [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html)).
 
-All methods from Elasticsearch class instance are available in AsyncElasticsearch
-class instance (see [API doc](http://elasticsearch-py.readthedocs.io/en/master/api.html)). Every API method returns [coroutine](https://docs.python.org/3/library/asyncio-task.html#coroutines)
-that must be awaited.
+All methods from the Elasticsearch class instance (see [API doc](http://elasticsearch-py.readthedocs.io/en/master/api.html))
+are available in the AsyncElasticsearch class instance.
 
-For example:
+Each API method returns [coroutine](https://docs.python.org/3/library/asyncio-task.html#coroutines) that must be awaited.
+
+Example of asynces usage:
 ```python
 import asyncio
 from asynces import AsyncElasticsearch
@@ -34,10 +34,10 @@ loop.run_until_complete(test(loop))
 loop.close()
 ```
 
-## Install
+## Installation
 
-First, you should install proper version on [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html#compatibility)
-in accordance to your elasticsearch server version.
+First, you should install the latest version of [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html#compatibility)
+compatible with your elasticsearch server version.
 
 After that you should install asynces package:
 

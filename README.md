@@ -5,6 +5,8 @@
 
 ### Asyncio driver for Elasticsearch and Python 3.5+
 
+The main idea of asynces is just create asyncio transport for official elasticsearch python driver.
+
 **asynces** package provide AsyncElasticsearch class inherited from
 Elasticsearch class from official python driver
 [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html)

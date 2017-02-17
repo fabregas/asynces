@@ -7,7 +7,7 @@
 
 Its goal is to create an asyncio transport for the official elasticsearch python driver.
 
-**The asynces** package provides the AsyncElasticsearch class inherited from
+The **asynces** package provides the AsyncElasticsearch class inherited from
 the Elasticsearch class (see [elasticsearch](https://elasticsearch-py.readthedocs.io/en/master/index.html)).
 
 All methods from the Elasticsearch class instance (see [API doc](http://elasticsearch-py.readthedocs.io/en/master/api.html))

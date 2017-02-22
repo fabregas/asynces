@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch
 from .transport import AioTransport
 
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 
 class AsyncElasticsearch(Elasticsearch):

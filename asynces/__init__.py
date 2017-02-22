@@ -1,6 +1,8 @@
 from elasticsearch import Elasticsearch
 from .transport import AioTransport
 
+__version__ = '0.1.3'
+
 
 class AsyncElasticsearch(Elasticsearch):
     def __init__(self, hosts, *, loop, **kwargs):

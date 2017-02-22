@@ -1,9 +1,10 @@
 import os
+import re
 import sys
 from setuptools import setup
 
 
-install_requires = ['yarl==0.9.3', 'aiohttp']
+install_requires = ['aiohttp']
 
 PY_VER = sys.version_info
 
@@ -16,9 +17,15 @@ def read(f):
 
 
 def read_version():
-    ver = os.path.join(os.path.dirname(__file__), 'VERSION')
-    with open(ver) as f:
-        return f.read().strip()
+    regexp = re.compile(r"^__version__\W*=\W*'([\d.abrcdev]+)'")
+    init_py = os.path.join(os.path.dirname(__file__), 'asynces', '__init__.py')
+    with open(init_py) as f:
+        for line in f:
+            match = regexp.match(line)
+            if match is not None:
+                return match.group(1)
+        else:
+            raise RuntimeError('Cannot find version in asynces/__init__.py')
 
 classifiers = [
     'License :: OSI Approved :: Apache Software License',

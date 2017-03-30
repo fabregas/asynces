@@ -4,7 +4,9 @@ import sys
 from setuptools import setup
 
 
-install_requires = ['aiohttp']
+install_requires = [
+    'aiohttp==1.3.5',
+]
 
 PY_VER = sys.version_info
 
